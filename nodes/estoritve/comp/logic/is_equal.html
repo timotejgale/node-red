@@ -1,0 +1,24 @@
+<script type="text/javascript">
+    RED.nodes.registerType('jeEnako',{
+        category: 'estoritve',
+        color: '#a6bbcf',
+        defaults: {
+        	compValue: {value:""}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "function.png",
+        label: "jeEnako"
+    });
+</script>
+
+<script type="text/x-red" data-template-name="jeEnako">
+    <div class="form-row">
+        <label for="node-input-compValue"><i class="icon-tag"></i> Vecje od: </label>
+        <input type="text" id="node-input-compValue" placeholder="Število npr. 5.12">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="jeEnako">
+    <p>Filtrira meritve na podlagi podane vrednosti.</p>
+</script>
