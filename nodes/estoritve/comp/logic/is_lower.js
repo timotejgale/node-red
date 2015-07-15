@@ -5,6 +5,7 @@ module.exports = function(RED) {
 		var node = this;
 		
 		this.on('input', function(msg) {
+			
 			if(!node.compValue) {
 				node.warn("Ni vhodnega podatka!", msg);
 				return;
@@ -13,13 +14,20 @@ module.exports = function(RED) {
 				node.warn("Vhodni podatek ni število!", msg);
 				return;
 			}
-			var value = msg.value || msg.payload.value;
-			if(parseFloat(value) < parseFloat(node.compValue))
-				msg.state = true;
-			else
-				msg.state = false;
 			
-			msg.value = value;
+			var measurements = JSON.parse(msg.payload);
+			var retMeasurements = [];
+
+			for(var i in measurements) {
+				if(parseFloat(measurements[i].value) < parseFloat(node.compValue))
+					retMeasurements.push(measurements[i]);
+			}
+
+			if(!retMeasurements.length > 0) {
+				return;
+			}
+			
+			msg.payload = retMeasurements;
 			node.send(msg);
 		});
 	}
